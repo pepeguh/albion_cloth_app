@@ -1,0 +1,41 @@
+.main_profile_div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.main_profile_div button{
+    width: max-content;
+    height: max-content;
+    padding: 5px;
+    background-color: transparent;
+    border: none;
+    background-color: #a5a5a5;
+    border-radius: 10px;
+
+}
+.main_profile_div button:active{
+    background-color: #5a5a5a;
+}
+
+
+
+
+
+.modul_div{    
+    margin-top: 40px;
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+    border-radius: 20px;
+    width: 40vw;
+    height: 30vh;
+}
+.auth_div{
+    display: flex;
+    flex-direction: column;
+}

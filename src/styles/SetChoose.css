@@ -1,0 +1,23 @@
+*{
+    font-family: 'Roboto', sans-serif;
+}
+.main_frame{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+   
+}
+.set_main{
+    margin-right: 20px;
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.set_frame{
+    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+}
+.img_part{
+    width: 100%;
+}
