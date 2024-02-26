@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/SetCreation.css";
+import "../styles/SetCreation.css";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { firestore } from "../../firebase";
-
+import { useSelector } from "react-redux";
 const SetCreation = () => {
   const test1 = [
     {
@@ -167,7 +167,7 @@ const SetCreation = () => {
   const test0 =
     "https://render.albiononline.com/v1/item/PLAYERISLAND_FURNITUREITEM_STONE_MAGIC_EMBLEM_GROUND_B";
   const db = firestore;
-
+  const user = useSelector(state => state.user);
   useEffect(() => {
     if (off_hand.slot == "weapon") {
       const elem = document.getElementById("item_off_hand");
@@ -186,6 +186,7 @@ const SetCreation = () => {
       potion.slot &&
       boots.slot &&
       food.slot &&
+      user &&
       nameChange !== ""
     ) {
       buttonSend.style.backgroundColor = "#4c7c4c";
@@ -316,6 +317,7 @@ const SetCreation = () => {
       console.log("ВСЁ ЗАПОЛНЕНО, ВСТАВЛЯЮ");
       // name:nameChange,
       semiSet = {
+        user:user,
         head: head,
         cape: cape,
         weapon: weapon,

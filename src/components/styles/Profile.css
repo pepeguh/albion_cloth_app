@@ -1,0 +1,170 @@
+.main_profile_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.main_profile_div button {
+  width: max-content;
+  height: max-content;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  background-color: #a5a5a5;
+  border-radius: 10px;
+}
+.main_profile_div button:active {
+  background-color: #5a5a5a;
+}
+
+.modul_div {
+  margin-top: 40px;
+ 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+ 
+  
+  border-radius: 20px;
+  width: 33vw;
+  height: 30vh;
+}
+.auth_div {
+  display: flex;
+  flex-direction: column;
+}
+.auth_div_choose {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.auth_div_choose button {
+  font-size: 2.5vh;
+  transition: all 0.2s;
+}
+.auth_div_choose button:hover {
+  transition: all 0.2s;
+  cursor: pointer;
+
+  background-color: #8a8a8a;
+}
+.login_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #a5a5a5;
+  border-radius: 20px;
+  padding: 10px;
+}
+.login_div input {
+  margin-top: 5px;
+  border-radius: 10px;
+  padding: 5px;
+}
+.login_div button {
+  transition: all 0.2s;
+  width: 40%;
+  margin-top: 10px;
+  background-color: #8a8a8a;
+  cursor: pointer;
+}
+.login_div button:hover {
+  transition: all 0.2s;
+  background-color: #747474;
+}
+.register_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #a5a5a5;
+  border-radius: 20px;
+  padding: 10px;
+}
+.register_div input {
+  margin-top: 5px;
+  border-radius: 10px;
+  padding: 5px;
+  border:1px solid #747474;
+  outline: 0;
+}
+.register_div input:focus {
+    background: #d3d3d3;
+}
+.register_div button {
+  transition: all 0.2s;
+  width: 40%;
+  margin-top: 10px;
+  background-color: #8a8a8a;
+  cursor: pointer;
+}
+.register_div button:hover {
+  transition: all 0.2s;
+  background-color: #747474;
+}
+#uploadButton {
+  height: max-content;
+  width: max-content;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+}
+
+#uploadButton:hover {
+  background-color: #45a049;
+}
+.forUser_div{
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 5px;
+ 
+  
+}
+.forUser_exit{
+  
+  display: flex;
+
+  justify-content: center;
+  background-color: #ccc;
+  border-radius: 20px;
+  width: 33vw;
+  height: 30vh;
+}
+.forUser_exit_small{
+  padding-left:10px ;
+  padding-top: 10px;
+}
+.forUser_create{
+  background-color: #ccc;
+  border-radius: 20px;
+  width: 33vw;
+  height: 30vh;
+}
+.forUser_create_small{
+  padding-left:10px ;
+  padding-top: 10px;
+}
+.forUser_change{
+  background-color: #ccc;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+ 
+ 
+  width: 33vw;
+  height: 30vh;
+}
+.forUser_change_small{
+  padding-left:10px ;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.forUser_change p{
+  color: #2b2b2b;
+}

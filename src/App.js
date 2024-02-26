@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import SetChoose from "./components/SetChoose";
-import MistSets from "./components/pages/MistSets";
-import GangSets from "./components/pages/GangSets";
-import Profile from "./components/pages/Profile";
-import SetCreation from './components/pages/SetCreation'
+import Header from "../src/components/pages/Header";
+import SetChoose from "../src/components/pages/SetChoose";
+import MistSets from "../src/components/pages/MistSets";
+import GangSets from "../src/components/pages/GangSets";
+import Profile from "../src/components/pages/Profile";
+import SetCreation from '../src/components/pages/SetCreation'
 const App = () => {
   return (
     <BrowserRouter>
