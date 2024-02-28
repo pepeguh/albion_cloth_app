@@ -197,7 +197,7 @@ const SetCreation = () => {
       console.log(nameChange);
       console.log("ЧТО ТО НЕ ЗАПОЛНЕНО");
     }
-  }, [head, cape, off_hand, weapon, potion, food, chest, boots, nameChange]);
+  }, [head, cape, off_hand, weapon, potion, food, chest, boots, nameChange,user]);
   const renameHandler = (e) => {
     const value = e.target.value;
     setNameChange(value);

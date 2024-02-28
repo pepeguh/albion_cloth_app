@@ -10,44 +10,66 @@ import {
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import { firestore } from "../../firebase";
 import { storage } from "../../firebase";
-import { UseDispatch, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import store from "../../redux/store";
 
 import "../styles/Profile.css";
 const Profile = () => {
   const dispatch = useDispatch();
   const db = firestore;
-  const [isAuth, setIsAuth] = useState(false);
-
+  
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-
+  
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-
+  
   const [isChecked, setIsChecked] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-
+  
   const [selectedFile, setSelectedFile] = useState({});
   let [fileURL, setFileURL] = useState("");
-
-  const [user, setUser] = useState({});
-
-  const [checkist, setCheckist] = useState(useSelector((state) => state.user));
+  
+  const [user, setUser] = useState(useSelector((state) => state.user));
+  
   const auth = getAuth();
+  
+  const check1 = useSelector((state) => state.user);
 
-  console.log(checkist);
+  const testUser = ()=>{
+    if(check1!==null){
+      
+      return true
+
+    }else{
+      return false
+    }
+  }
+  const [isAuth, setIsAuth] = useState(testUser());
 
   useEffect(() => {
-    dispatch({ type: "SET_USER", payload: user.uid });
+    if (user) {
+      if(user.uid){
+        if(user.uid!==''&&user.uid!==undefined){
+
+          dispatch({ type: "SET_USER", payload: user.uid });
+        }
+      }
+    }
   }, [user]);
+  // КОРОЧЕ ИЗ АУТХ ТОЖЕ НАДО В РЕДАКС
+  let y = useSelector((state) => state.user);
+  useEffect(() => {
+    if (y !== null || y !== "") {
+      setUser(y);
+    }
+  }, []);
 
   const reader = new FileReader();
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     selectedFile.name = file.name;
-    dispatch({ type: "SET_USER", payload: user.uid });
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       const content = reader.result;
@@ -75,12 +97,6 @@ const Profile = () => {
     } else {
       console.log("Выберите файл перед загрузкой.");
     }
-  };
-  const setUserUID = async (userData) => {
-    setTimeout(() => dispatch({ type: "SET_USER", action: userData }), 2000);
-    setTimeout(() => console.log("СРАБОТАЛА ЗАПИСь", userData), 2000);
-
-    return;
   };
 
   const checkHandler = (check) => {
@@ -113,16 +129,15 @@ const Profile = () => {
     signInWithEmailAndPassword(auth, loginEmail, loginPassword)
       .then((userCredential) => {
         // Signed in
+        console.log(userCredential.user)
         setUser(userCredential.user);
-
-        // dispatch({ type: 'SET_USER', payload: user });
         setIsAuth(true);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error("ОШИБКА", errorCode, errorMessage);
-        dispatch({ type: "SET_USER", payload: "" });
+        dispatch({ type: "SET_USER", payload: null });
         setIsAuth(false);
       });
     // setUserUID(user.uid);
@@ -142,7 +157,7 @@ const Profile = () => {
         })
         .catch((error) => {
           setIsAuth(false);
-          dispatch({ type: "SET_USER", payload: "" });
+          dispatch({ type: "SET_USER", payload: null });
           const errorCode = error.code;
           const errorMessage = error.message;
           console.error("ОШИБКА", errorCode, errorMessage);
@@ -160,7 +175,7 @@ const Profile = () => {
       .then(() => {
         // Sign-out successful.
         console.log("ТЫ ВЫШЕЛ");
-        dispatch({ type: "SET_USER", payload: "" });
+        dispatch({ type: "SET_USER", payload: null });
         setIsAuth(false);
       })
       .catch((error) => {
