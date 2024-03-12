@@ -150,6 +150,7 @@ const SetCreation = () => {
       slot: "food",
     },
   ];
+  const categoriesList = ['gank', 'mist', 'PVE', 'CD'];
   const [nameChange, setNameChange] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(test1);
@@ -162,6 +163,7 @@ const SetCreation = () => {
   const [potion, setPotion] = useState({});
   const [boots, setBoots] = useState({});
   const [food, setFood] = useState({});
+  const [selectedCategories, setSelectedCategories] = useState([])
   const [description, setDescription] = useState("Без описания");
   const baseUrl = "https://render.albiononline.com/v1/item/T8_";
   const test0 =
@@ -235,7 +237,11 @@ const SetCreation = () => {
     e.target.style.backgroundColor = "#92908d";
     // console.log("НЕ НАВОДИ НА МЕНЯ");
   };
+ 
+// dropHandler(10, 'paket')
+
   const dropHandler = (e, item) => {
+
     e.preventDefault();
     console.log("drop:", item);
   };
@@ -327,22 +333,28 @@ const SetCreation = () => {
         boots: boots,
         food: food,
         description: description,
+        categories:selectedCategories
       };
       try {
-        const docRef = doc(db, "mist", nameChange);
+        const docRef = doc(db, "sets", nameChange);
         await setDoc(docRef, semiSet);
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
         console.error("Error adding document: ", e);
       }
-      // db.collection('mist').doc(nameChange).set(semiSet).then(()=>{
-      //   console.log('документ успешно загружен');
-      // }).catch((e)=>{
-      //   console.error('Возникла ошибка при загрузке комплекта',e)
-      // });
       console.log(semiSet);
     }
   };
+  const handleCategoryToggle = (category)=>{
+    setSelectedCategories((prevCategories)=>{
+      if(prevCategories.includes(category)){
+        return prevCategories.filter((prevCategory)=>prevCategory!==category);
+      }else{
+        return [...prevCategories, category];
+      }
+    });
+  };
+
 
   return (
     <div className="main_div">
@@ -470,13 +482,28 @@ const SetCreation = () => {
               <span>{food.ru_name}</span>
             </div>
           </div>
-
+                
           <textarea
             placeholder="Описание..."
             className="left_side_description"
             onChange={handleDescription}
             // value={description}
           ></textarea>
+
+          <div className="left_side_categories">
+          {categoriesList.map((category)=>(
+            <label className="left_side_label" key={category}>
+              <input
+              className={`input_${category}`}
+              type="checkbox"
+              checked={selectedCategories.includes(category)}
+              onChange={()=>handleCategoryToggle(category)}
+              />
+               {category}
+            </label>
+          ))}
+          </div>
+
         </div>
         <button
           className="left_side_btn"

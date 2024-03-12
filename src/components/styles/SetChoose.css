@@ -1,6 +1,65 @@
-*{
-    font-family: 'Roboto', sans-serif;
+.top_frame{
+    display: flex;
+    flex-direction: row;
 }
+.top_frame_label{
+    margin-left: 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+  }
+  .top_frame_label input{
+    margin-top: 10px;
+    margin-right: 5px;
+  
+  }
+  .input_gank[type='checkbox']:checked{
+    transition: all 0.3s;
+    background-color: rgb(192, 105, 105) !important; 
+    border-color: rgb(124, 42, 42) !important; 
+  }
+  .input_mist[type='checkbox']:checked{
+    transition: all 0.3s;
+    background-color: rgb(157, 105, 192) !important; 
+    border-color: rgb(91, 42, 124) !important; 
+  }
+  .input_PVE[type='checkbox']:checked{
+    transition: all 0.3s;
+    background-color: rgb(105, 192, 105) !important; 
+    border-color: rgb(42, 124, 42) !important; 
+  }
+  .input_CD[type='checkbox']:checked{
+    transition: all 0.3s;
+    background-color: rgb(192, 154, 105) !important; 
+    border-color: rgb(124, 98, 42) !important; 
+  }
+  .top_frame_label input[type='checkbox']{
+    appearance: none; 
+    width: 16px; /* Размер чекбокса (вы можете настроить под свои требования) */
+    height: 16px;
+    border-radius: 10%;
+     /* Делаем квадрат круглым */
+    border: 2px solid #333; /* Цвет обводки чекбокса */
+    background-color: transparent; /* Прозрачный фон чекбокса */
+    cursor: pointer; /* Задаем курсор при наведении */
+    margin-right: 5px; 
+    transition: all 0.3s;
+    ;
+  }
+  .top_frame_label input[type="checkbox"]:checked {
+    transition: all 0.3s;
+    border-radius: 50%;
+    background-color: rgb(76, 124, 76); /* Цвет фона при выборе (вы можете настроить под свои требования) */
+    border-color: #4caf50; /* Цвет обводки при выборе */
+  }
+.top_frame input{
+    background: transparent;
+    outline: 0;
+    border: 0;
+}
+
+
 .main_frame{
     display: grid;
     grid-template-columns: repeat(3, 1fr); 

@@ -19,14 +19,13 @@
 
 .modul_div {
   margin-top: 40px;
- 
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #ccc;
- 
-  
+
   border-radius: 20px;
   width: 33vw;
   height: 30vh;
@@ -86,11 +85,11 @@
   margin-top: 5px;
   border-radius: 10px;
   padding: 5px;
-  border:1px solid #747474;
+  border: 1px solid #747474;
   outline: 0;
 }
 .register_div input:focus {
-    background: #d3d3d3;
+  background: #d3d3d3;
 }
 .register_div button {
   transition: all 0.2s;
@@ -117,16 +116,13 @@
 #uploadButton:hover {
   background-color: #45a049;
 }
-.forUser_div{
+.forUser_div {
   width: max-content;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 5px;
- 
-  
 }
-.forUser_exit{
-  
+.forUser_exit {
   display: flex;
 
   justify-content: center;
@@ -135,36 +131,138 @@
   width: 33vw;
   height: 30vh;
 }
-.forUser_exit_small{
-  padding-left:10px ;
+.forUser_exit_small {
+  padding-left: 10px;
   padding-top: 10px;
 }
-.forUser_create{
+.forUser_create {
   background-color: #ccc;
   border-radius: 20px;
   width: 33vw;
   height: 30vh;
 }
-.forUser_create_small{
-  padding-left:10px ;
+.forUser_create_small {
+  padding-left: 10px;
   padding-top: 10px;
 }
-.forUser_change{
+.forUser_create_small_mySets {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  overflow: auto;
+}
+
+.forUser_create_small_mySets_set {
+  width: 95%;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  border: 1px solid greenyellow;
+  transition: all 0.5s;
+}
+.forUser_create_small_mySets_set_svg {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  /* border-right: 1px solid black;
+  border-left:1px solid black ; */
+  width: 0px;
+  transition: all 0.5s;
+  
+  position: relative;
+}
+.trashdiv{
+  transition: all 0.6s;
+}
+.trash {
+  background-color: rgba(255, 0, 0, 0.171) !important;
+  position: absolute;
+  color: transparent;
+  transform: translateX(21%) translateY(-50%);
+  z-index: 5;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.trash1 {
+  position: absolute;
+  z-index: 4;
+  transform: translateX(50%) translateY(-50%);
+  transition: all 0.3s;
+}
+.nodiv{
+  transition: all 0.3s;
+}
+.no {
+ 
+  width: 30px;
+  height: 30px;
+  color: transparent;
+  background-color: rgba(255, 0, 0, 0) !important;
+  display: none;
+  position: absolute;
+  transform: translateX(0%) translateY(-30%);
+ 
+  z-index: 3;
+  transition: all 0.4s;
+}
+.no1{
+  display: none;
+  color: rgb(0, 177, 0);
+  position: absolute;
+  z-index: 2;
+
+  /* transform: translateX(130%) translateY(-30%); */
+  transition: all 0.3s;
+}
+.yes {
+  color: rgb(211, 50, 50);
+  display: none;
+  margin-left: 5px;
+  transition: all 0.2s;
+  
+}
+.yes1{
+  color: transparent;
+  background-color: rgba(38, 145, 28, 0) !important;
+  cursor: pointer;
+  position: absolute;
+  transition: all 0.3s;
+  transform: translateX(40%) translateY(-50%);
+}
+.yes:hover{
+  cursor: pointer;
+
+  color: rgb(167, 0, 0);
+  transition: all 0.2s;
+
+}
+.no:hover {
+  cursor: pointer;
+ 
+  transition: all 0.2s;
+
+}
+
+.forUser_create_small_mySets_set img {
+  width: 20%;
+}
+.forUser_change {
   background-color: #ccc;
   border-radius: 20px;
   display: flex;
   justify-content: center;
- 
- 
+
   width: 33vw;
   height: 30vh;
 }
-.forUser_change_small{
-  padding-left:10px ;
+.forUser_change_small {
+  padding-left: 10px;
   padding-top: 10px;
   display: flex;
   flex-direction: column;
 }
-.forUser_change p{
+.forUser_change p {
   color: #2b2b2b;
 }
