@@ -336,7 +336,7 @@ const SetCreation = () => {
         categories:selectedCategories
       };
       try {
-        const docRef = doc(db, "sets", nameChange);
+        const docRef = doc(db, "sets", `${user} ${nameChange}`);
         await setDoc(docRef, semiSet);
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {

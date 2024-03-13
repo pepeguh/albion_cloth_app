@@ -21,8 +21,13 @@ const SetChoose = () => {
         querySnapshot.forEach((doc) => {
           if (doc.exists()) {
             const setData = doc.data();
+            let timeName = doc.id.split(' ')
+            timeName.splice(0,1)
+            timeName = timeName.join(' ')
+            
+            console.log(doc)
             const formattedData = {
-              name: doc.id,
+              name: timeName,
               description: setData.description,
               categories: setData.categories,
               head: baseUrl + setData.head.uniqueName,
@@ -115,13 +120,15 @@ const SetChoose = () => {
                   <img className="img_part" src={set.potion} alt="Potion" />
                   <img className="img_part" src={set.boots} alt="Boots" />
                   <img className="img_part" src={set.food} alt="Food" />
-                  <p>{set.description}</p>
                 </div>
+                  <p>{set.description}</p>
               </div>
             ))}
           </div>
+         
         ) : (
-          <p>ПЕПЕГА</p>
+          <span className="anim_loader"> </span>
+          
         )}
       </div>
     </div>

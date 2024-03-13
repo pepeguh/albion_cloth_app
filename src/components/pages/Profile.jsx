@@ -96,7 +96,10 @@ const Profile = () => {
         const querySnapshot = await getDocs(q);
         const setsData = [];
         querySnapshot.forEach((doc) => {
-          setsData.push({ id: doc.id, ...doc.data() });
+          let timeName = doc.id.split(' ')
+          timeName.splice(0,1)
+          timeName = timeName.join(' ')
+          setsData.push({ id: timeName, ...doc.data() });
         });
 
         setSets(setsData);
