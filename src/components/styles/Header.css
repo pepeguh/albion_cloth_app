@@ -7,11 +7,13 @@
 }
 .main_header {
   margin: 0;
-  
   padding: 0;
-  width: 100vw;
+  width: 97.778vw;
   height: 48px;
- background-color: transparent;
+  
+}
+.main_container{
+  background-color: transparent;
   border-bottom: 2px solid transparent;
   display: flex;
   justify-content: space-between;
@@ -25,31 +27,11 @@
   border:2px solid var(--border-home) ;
 
 }
-.header_mist {
-  background-color: #652d99;
-  width: 10%;
-  height: calc(100%-2px);
-  border: 2px solid #461674;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-}
 .header_link{
   color:aliceblue;
   text-decoration: none;
   cursor: pointer;
-}
-.header_gang {
-  background-color: #c94545;
-  margin-left: 20px;
-  width: 10%;
-  height: calc(100%-2px);
-  border: 2px solid #771919;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
 }
 .header_avatar{
 margin: 0;

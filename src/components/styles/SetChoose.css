@@ -59,19 +59,26 @@
     border: 0;
 }
 
+.main_main_frame{
+margin-top: 10px;
+}
 
 .main_frame{
-  background-color: rgb(90, 92, 91);
+    background-color: rgb(90, 92, 91);
     display: grid;
     grid-template-columns: repeat(3, 1fr); 
+
+
    
 }
 .set_main{
-    margin-right: 20px;
+  margin-top: 2px;
+    margin-right: 10px;
     background-color: bisque;
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 300px;
 }
 .set_frame{
     

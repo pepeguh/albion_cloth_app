@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import "../styles/SetChoose.css";
+import { Link } from "react-router-dom";
 
 const SetChoose = () => {
   const [sets, setSets] = useState([]);
@@ -22,11 +23,19 @@ const SetChoose = () => {
           if (doc.exists()) {
             const setData = doc.data();
             let timeName = doc.id.split(' ')
+            console.log(timeName)
+            let timeid = [...timeName]
+            let timeNameGround = [...timeName]
+            timeid.splice(1,99)
+            timeid = timeid.join(' ')
             timeName.splice(0,1)
             timeName = timeName.join(' ')
+            timeNameGround = timeNameGround.join('_')
             
-            console.log(doc)
+            console.log(timeName, timeid)
             const formattedData = {
+              id:timeid,
+              groundName:timeNameGround,
               name: timeName,
               description: setData.description,
               categories: setData.categories,
@@ -97,9 +106,10 @@ const SetChoose = () => {
         ))}
       </div>
       <div className="main_main_frame">
-        {findedSets.length ? (
+        {findedSets ? (
           <div className="main_frame">
             {findedSets.map((set) => (
+              <Link to={`/setPage/${set.groundName}` }>
               <div className="set_main" key={set.name}>
                 <h1>{set.name}</h1>
                 <div className="set_frame">
@@ -110,19 +120,20 @@ const SetChoose = () => {
                   <img className="img_part" src={set.chest} alt="Chest" />
                   {set.off_hand ? (
                     <img
-                      className="img_part"
-                      src={set.off_hand}
-                      alt="Off Hand"
+                    className="img_part"
+                    src={set.off_hand}
+                    alt="Off Hand"
                     />
-                  ) : (
-                    <img className="img_part" src={set.weapon} alt="Weapon" />
-                  )}
+                    ) : (
+                      <img className="img_part" src={set.weapon} alt="Weapon" />
+                      )}
                   <img className="img_part" src={set.potion} alt="Potion" />
                   <img className="img_part" src={set.boots} alt="Boots" />
                   <img className="img_part" src={set.food} alt="Food" />
                 </div>
                   <p>{set.description}</p>
               </div>
+          </Link>
             ))}
           </div>
          
