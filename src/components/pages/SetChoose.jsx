@@ -131,7 +131,7 @@ const SetChoose = () => {
                   <img className="img_part" src={set.boots} alt="Boots" />
                   <img className="img_part" src={set.food} alt="Food" />
                 </div>
-                  <p>{set.description}</p>
+                  <div className="desc_div_small">{set.description}</div>
               </div>
           </Link>
             ))}

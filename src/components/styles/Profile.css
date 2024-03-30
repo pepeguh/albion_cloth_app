@@ -123,15 +123,24 @@
   grid-column-gap: 5px;
 }
 .forUser_exit {
+  
   display: flex;
-
+flex-direction: column;
   justify-content: center;
   background-color: #ccc;
   border-radius: 20px;
   width: 33vw;
   height: 30vh;
 }
+.voted_sets_div{
+  padding-left: 15px;
+  overflow-y: scroll;
+  max-height: 70%;
+}
 .forUser_exit_small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-left: 10px;
   padding-top: 10px;
 }
@@ -244,9 +253,15 @@
   transition: all 0.2s;
 
 }
-
-.forUser_create_small_mySets_set img {
+.create_small_mySets_set_p{
+  width: 60%;
+}
+.forUser_create_small_mySets_set_link_div{
+  display: flex;
   width: 20%;
+}
+.create_small_mySets_set_img {
+  width: 100%;
 }
 .forUser_change {
   background-color: #ccc;

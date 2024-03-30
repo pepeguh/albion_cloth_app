@@ -322,7 +322,10 @@ const SetCreation = () => {
     } else {
       console.log("ВСЁ ЗАПОЛНЕНО, ВСТАВЛЯЮ");
       // name:nameChange,
+      let semigroundName = `${user} ${nameChange}`
+      let almosthere = semigroundName.split(' ').join('_')
       semiSet = {
+        groundName:almosthere,
         user:user,
         head: head,
         cape: cape,

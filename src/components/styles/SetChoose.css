@@ -80,6 +80,20 @@ margin-top: 10px;
     align-items: center;
     max-width: 300px;
 }
+.desc_div_small{
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  height: 40px;
+  max-width: inherit;
+  /* overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2; /* Ограничение до двух строк */
+}
 .set_frame{
     
     display: grid;

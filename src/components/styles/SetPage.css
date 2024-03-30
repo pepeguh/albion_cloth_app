@@ -1,0 +1,87 @@
+.main_personal_div {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(180, 179, 176);
+}
+.main_personal_frame {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.frame_set_part {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img_part {
+  width: 70%;
+}
+.frame_set_part:hover .frame_set_part_name {
+    opacity: 1;
+  visibility: visible;
+  
+}
+.frame_set_part_name {
+    border-radius:10px ;
+    padding: 2px;
+    transition: all 0.4s ease;
+    opacity: 0;
+    visibility:hidden;
+  position: absolute;
+  max-width: 70%;
+  background-color: rgba(240, 248, 255, 0.89);
+  top: 50%;
+  
+}
+.main_personal_div_raiting{
+  display: flex;
+  flex-direction: row;
+}
+.main_personal_div_raiting_btns{
+  display: flex;
+}
+.main_personal_div_raiting_star{
+  color: yellow;
+}
+.main_personal_div_voted p::after{
+  content: "★";
+}
+.main_personal_div_voted_btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 20px;
+  width: fit-content;
+  height: fit-content;
+  font-size:30px;
+}
+.main_personal_div_voted_btn:active{
+  border-radius: 50%;
+  transition: 0.2s all;
+  background-color: rgba(255, 255, 0, 0.322);
+  /* color:yellow; */
+}
+
+#check1{
+  width: 40px;
+  height: 40px;
+    background: rgb(63, 165, 42);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+}
+#check2{
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  background: brown;
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+

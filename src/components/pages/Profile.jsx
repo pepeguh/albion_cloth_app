@@ -7,7 +7,10 @@ import {
   query,
   where,
   getDocs,
-  deleteDoc
+  deleteDoc,
+  updateDoc,
+  getDoc,
+  deleteField
 } from "firebase/firestore";
 import {
   getAuth,
@@ -47,6 +50,8 @@ const Profile = () => {
   let [schet1, setSchet1] = useState(0);
   let [schet2, setSchet2] = useState(0);
   let [schet3, setSchet3] = useState(0);
+
+  const [votedSets, setVotedSets] = useState([])
 
   const [user, setUser] = useState(useSelector((state) => state.user));
 
@@ -92,18 +97,55 @@ const Profile = () => {
     const downloadUserSets = async () => {
       try {
         const setsCollection = collection(firestore, "sets");
+       
+        const docRef = doc(firestore, "users_data", user);
+        const docSnap = await getDoc(docRef);
+        const userVoted = docSnap.data().complects
+        const tryArr =[]
+        const getteditems=[]
+       for (const key in userVoted) {
+        if(typeof userVoted[key]==='object'&&userVoted[key].voted ===true){
+          tryArr.push(key)
+        }
+       }
+       let newpepega=[]
+       for(let i =0; i<tryArr.length;i++){
+        newpepega.push(tryArr[i].split('_').join(' '))
+       }
+       console.log(newpepega)
+       await Promise.all(
+         newpepega.map(async (el) => {
+          const docSetsRef = doc(firestore, "sets", el)
+          const pepe= await getDoc(docSetsRef)
+          let timeName = pepe.id.split(' ')
+          
+          timeName.splice(0,1)
+          timeName = timeName.join(' ')
+          getteditems.push({id:timeName, ...pepe.data()})
+         })
+
+       )
+       setVotedSets(getteditems)
+       console.log(getteditems)
+       
+
+
+
         const q = query(setsCollection, where("user", "==", user));
         const querySnapshot = await getDocs(q);
         const setsData = [];
         querySnapshot.forEach((doc) => {
           let timeName = doc.id.split(' ')
+          
           timeName.splice(0,1)
           timeName = timeName.join(' ')
-          setsData.push({ id: timeName, ...doc.data() });
+          let pepega = doc.id.split(' ').join('_')
+
+          setsData.push({groundName:pepega, id: timeName, ...doc.data() });
         });
 
         setSets(setsData);
-        console.log(sets);
+        console.log(setsData);
       } catch (error) {
         console.error("Ошибка при запросе данных из Firestore:", error);
       }
@@ -149,7 +191,13 @@ const Profile = () => {
       }
       try {
         const docRef = doc(db, "users_data", user);
-        await setDoc(docRef, { picture: fileURL });
+        let chech = await getDoc(docRef)
+        if (chech.exists()){
+          await updateDoc(docRef, { picture: fileURL });
+
+        }else{
+          await setDoc(docRef, { picture: fileURL });
+        }
       } catch (error) {
         console.log("Ошибка при привязке картинки к профилю: ", error);
       }
@@ -256,14 +304,36 @@ const Profile = () => {
   const deleteUserSet = async(e) => {
     let detect = e.target.id;
     let choosedDoc = sets[detect].id
+    let choosedName = sets[detect].user
+    const checkname = sets[detect].groundName
     let cheker = [...sets]
     console.log(cheker)
     try {
-      console.log('deleting')
-       await deleteDoc(doc(db, `sets`, choosedDoc)).then(deleteStateSets(detect,cheker));
       
+       await deleteDoc(doc(db, `sets`, `${choosedName} ${choosedDoc}`)).then(deleteStateSets(detect,cheker));
+      
+       //удаление данных из всех пользователей об этом комплекте
+       const usersDataQuery = query(collection(db, "users_data"));
+       const usersDataSnapshot = await getDocs(usersDataQuery);
+      
+       const promises = usersDataSnapshot.docs.map(async (docSnapshot) => {
+        const userData = docSnapshot.data();
+       
+        if (userData.complects && userData.complects[checkname]) {
+         console.log('до',userData.complects)
+         delete userData.complects[checkname];
+         console.log('после',userData.complects)
+         
+          await updateDoc(doc(db, "users_data", docSnapshot.id), {
+            complects: userData.complects,
+          });
+        }
+      });
+  
+      await Promise.all(promises);
+      console.log("Комплект успешно удален у всех пользователей");
     } catch (error) {
-      console.error(error)
+      console.error("Ошибка при удалении комплекта у всех пользователей:", error);
     }
     
   };
@@ -366,6 +436,20 @@ const Profile = () => {
                   ВЫЙТИ ИЗ АККАУНТА
                 </button>
               </div>
+              <div className="voted_sets_div">
+                <p>Избранное</p>
+                {votedSets.map((set)=>(
+                  <div
+                  className="forUser_create_small_mySets_set"
+                  key={set.id}
+                  >
+                    <Link to={`/setPage/${set.groundName}`} className="forUser_create_small_mySets_set_link_div">
+                  <img className="create_small_mySets_set_img" src={baseUrl + set.weapon.uniqueName}></img>
+                </Link>
+                  <p className="create_small_mySets_set_p">{set.id}</p>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="forUser_create">
               <div className="forUser_create_small">
@@ -378,9 +462,11 @@ const Profile = () => {
                     <div
                       className="forUser_create_small_mySets_set"
                       key={set.id}
-                    >
-                      <img src={baseUrl + set.weapon.uniqueName}></img>
-                      <p>{set.id}</p>
+                      >
+                        <Link to={`/setPage/${set.groundName}`} className="forUser_create_small_mySets_set_link_div">
+                      <img className="create_small_mySets_set_img" src={baseUrl + set.weapon.uniqueName}></img>
+                    </Link>
+                      <p className="create_small_mySets_set_p">{set.id}</p>
                       <div className="forUser_create_small_mySets_set_svg">
                         <div className="trashdiv">
                           <button
@@ -393,12 +479,10 @@ const Profile = () => {
                           <FaTrashCan className="trash1" />
                         </div>
 
-                        {/* <button id={schet++} onClick={areUSure} className="trash" style={{backgroundColor:'blanchedalmond', width:'max-content', height:'max-content'}}>?</button>
-                       <button className="yes" style={{backgroundColor:'green', width:'max-content', height:'max-content'}}>+</button>
-                       <button className="no" style={{backgroundColor:'red', width:'max-content', height:'max-content'}}>-</button> */}
+                        
                           <button id={schet3++} onClick={deleteUserSet} className="yes1">..</button>
                         <FaCheck id={schet2++}  className="yes"  />
-                      
+                     
                           
                           
 
