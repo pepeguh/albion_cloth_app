@@ -3,6 +3,7 @@ import "../styles/SetCreation.css";
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 const SetCreation = () => {
   const test1 = [
     {
@@ -165,6 +166,7 @@ const SetCreation = () => {
   const [food, setFood] = useState({});
   const [selectedCategories, setSelectedCategories] = useState([])
   const [description, setDescription] = useState("Без описания");
+  const navigate = useNavigate();
   const baseUrl = "https://render.albiononline.com/v1/item/T8_";
   const test0 =
     "https://render.albiononline.com/v1/item/PLAYERISLAND_FURNITUREITEM_STONE_MAGIC_EMBLEM_GROUND_B";
@@ -189,11 +191,15 @@ const SetCreation = () => {
       boots.slot &&
       food.slot &&
       user &&
-      nameChange !== ""
+      nameChange !== "" &&
+      buttonSend
+    
     ) {
       buttonSend.style.backgroundColor = "#4c7c4c";
       buttonSend.style.cursor = "pointer";
-    } else {
+    } else if(!buttonSend){
+     
+    }else{
       buttonSend.style.background = "#b13e3e";
       buttonSend.style.cursor = "not-allowed";
       console.log(nameChange);
@@ -316,7 +322,9 @@ const SetCreation = () => {
       !off_hand.slot ||
       !potion.slot ||
       !boots.slot ||
-      !food.slot
+      !food.slot ||
+      !user
+
     ) {
       console.log("ЧТО ТО НЕ ЗАПОЛНЕНО");
     } else {
@@ -342,6 +350,7 @@ const SetCreation = () => {
         const docRef = doc(db, "sets", `${user} ${nameChange}`);
         await setDoc(docRef, semiSet);
         console.log("Document written with ID: ", docRef.id);
+        navigate('/profile')
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -508,6 +517,7 @@ const SetCreation = () => {
           </div>
 
         </div>
+        {user? 
         <button
           className="left_side_btn"
           id="btn1"
@@ -515,6 +525,9 @@ const SetCreation = () => {
         >
           Опубликовать
         </button>
+        :
+        <Link to={'/profile'} >Войдите чтобы создавать комплекты</Link>
+        }
       </div>
 
       <div className="puzzle_main_choose">

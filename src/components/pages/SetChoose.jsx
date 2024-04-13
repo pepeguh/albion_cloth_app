@@ -1,15 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
 import { firestore } from "../../firebase";
 import "../styles/SetChoose.css";
 import { Link } from "react-router-dom";
-
+import Chat from "../elements/chat.jsx";
+import { useDispatch, useSelector } from "react-redux";
 const SetChoose = () => {
+  const user = useSelector(state => state.user);
   const [sets, setSets] = useState([]);
   const [findedSets, setFindedSets] = useState(sets);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const baseUrl = "https://render.albiononline.com/v1/item/T8_";
   const categoriesList = ["gank", "mist", "PVE", "CD"];
+  const setsPerPage = 9;
+  const indexOfLastSet = currentPage * setsPerPage;
+  const indexOfFirstSet = indexOfLastSet - setsPerPage;
+  let numberOfPages = findedSets.length / setsPerPage;
+  numberOfPages = Math.ceil(numberOfPages);
+  let trypepe = [];
+  for (let i = 1; i <= numberOfPages; i++) {
+    trypepe.push(i);
+  }
+
+  const currentSets = findedSets.slice(indexOfFirstSet, indexOfLastSet);
+
+  const pageHandler = (pageNum) => {
+    let pepe = pageNum.target.id;
+    setCurrentPage(pepe);
+    for (let i = 1; i <= numberOfPages; i++) {
+      let timeelem = document.getElementById(i);
+      if (timeelem.id == pepe) {
+        timeelem.style.color = "white";
+      } else {
+        timeelem.style.color = "black";
+      }
+    }
+  };
+
   useEffect(() => {
     changeSets();
   }, [selectedCategories, sets]);
@@ -22,20 +52,20 @@ const SetChoose = () => {
         querySnapshot.forEach((doc) => {
           if (doc.exists()) {
             const setData = doc.data();
-            let timeName = doc.id.split(' ')
-            console.log(timeName)
-            let timeid = [...timeName]
-            let timeNameGround = [...timeName]
-            timeid.splice(1,99)
-            timeid = timeid.join(' ')
-            timeName.splice(0,1)
-            timeName = timeName.join(' ')
-            timeNameGround = timeNameGround.join('_')
-            
-            console.log(timeName, timeid)
+            let timeName = doc.id.split(" ");
+            console.log(timeName);
+            let timeid = [...timeName];
+            let timeNameGround = [...timeName];
+            timeid.splice(1, 99);
+            timeid = timeid.join(" ");
+            timeName.splice(0, 1);
+            timeName = timeName.join(" ");
+            timeNameGround = timeNameGround.join("_");
+
+            console.log(timeName, timeid);
             const formattedData = {
-              id:timeid,
-              groundName:timeNameGround,
+              id: timeid,
+              groundName: timeNameGround,
               name: timeName,
               description: setData.description,
               categories: setData.categories,
@@ -62,6 +92,7 @@ const SetChoose = () => {
     };
 
     fetchData();
+
     console.log(sets);
   }, []);
   const findSet = (e) => {
@@ -89,6 +120,10 @@ const SetChoose = () => {
       }
     });
   };
+  const chatHandler = () => {
+    console.log("нажал на чат");
+    setIsChatOpen(!isChatOpen);
+  };
   return (
     <div className="frame">
       <div className="top_frame">
@@ -108,39 +143,64 @@ const SetChoose = () => {
       <div className="main_main_frame">
         {findedSets ? (
           <div className="main_frame">
-            {findedSets.map((set) => (
-              <Link to={`/setPage/${set.groundName}` }>
+            {currentSets.map((set) => (
               <div className="set_main" key={set.name}>
                 <h1>{set.name}</h1>
-                <div className="set_frame">
-                  <h1></h1>
-                  <img className="img_part" src={set.head} alt="Head" />
-                  <img className="img_part" src={set.cape} alt="Cape" />
-                  <img className="img_part" src={set.weapon} alt="Weapon" />
-                  <img className="img_part" src={set.chest} alt="Chest" />
-                  {set.off_hand ? (
-                    <img
-                    className="img_part"
-                    src={set.off_hand}
-                    alt="Off Hand"
-                    />
+                <Link
+                  style={{ textDecoration: "none" }}
+                  to={`/setPage/${set.groundName}`}
+                >
+                  <div className="set_frame">
+                    <h1></h1>
+                    <img className="img_part" src={set.head} alt="Head" />
+                    <img className="img_part" src={set.cape} alt="Cape" />
+                    <img className="img_part" src={set.weapon} alt="Weapon" />
+                    <img className="img_part" src={set.chest} alt="Chest" />
+                    {set.off_hand ? (
+                      <img
+                        className="img_part"
+                        src={set.off_hand}
+                        alt="Off Hand"
+                      />
                     ) : (
                       <img className="img_part" src={set.weapon} alt="Weapon" />
-                      )}
-                  <img className="img_part" src={set.potion} alt="Potion" />
-                  <img className="img_part" src={set.boots} alt="Boots" />
-                  <img className="img_part" src={set.food} alt="Food" />
-                </div>
-                  <div className="desc_div_small">{set.description}</div>
+                    )}
+                    <img className="img_part" src={set.potion} alt="Potion" />
+                    <img className="img_part" src={set.boots} alt="Boots" />
+                    <img className="img_part" src={set.food} alt="Food" />
+                  </div>
+                </Link>
+                <div className="desc_div_small">{set.description}</div>
               </div>
-          </Link>
             ))}
+           
+            {isChatOpen ? (
+             user&&<div>
+               
+                <Chat toggleChat={chatHandler} className="chat_div" />
+              </div>
+            ) : (
+              user&&<div onClick={chatHandler}>
+                <IoChatboxEllipsesOutline className="chat_icon" />
+              </div>
+            )}
+            
           </div>
-         
         ) : (
           <span className="anim_loader"> </span>
-          
         )}
+      </div>
+      <div className="pagination_div">
+        {trypepe.map((page) => (
+          <p
+            id={page}
+            className={`page_p${page}`}
+            style={{ cursor: "pointer" }}
+            onClick={(page) => pageHandler(page)}
+          >
+            {page}
+          </p>
+        ))}
       </div>
     </div>
   );

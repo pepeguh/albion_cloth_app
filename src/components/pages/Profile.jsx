@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   setDoc,
   doc,
@@ -30,6 +31,7 @@ import store from "../../redux/store";
 import "../styles/Profile.css";
 const Profile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const db = firestore;
   const baseUrl = "https://render.albiononline.com/v1/item/T8_";
   const [loginEmail, setLoginEmail] = useState("");
@@ -38,9 +40,11 @@ const Profile = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
-
+  const [nickName,setNickName] = useState('')
+  const [isNickNamePlaced, setIsNickNamePlaced] = useState(false)
   const [isChecked, setIsChecked] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [NickShit, setNickShit] = useState('Ник занят')
 
   const [selectedFile, setSelectedFile] = useState({});
   let [fileURL, setFileURL] = useState("");
@@ -186,6 +190,7 @@ const Profile = () => {
         await uploadString(storageRef, selectedFile.img, "data_url");
         fileURL = await getDownloadURL(storageRef);
         setFileURL(await getDownloadURL(storageRef));
+        setSelectedFile("")
       } catch (e) {
         console.error("Ошибка при загрузке файла:", e);
       }
@@ -214,6 +219,7 @@ const Profile = () => {
     let i = e.target.value;
     setLoginEmail(i);
   };
+ 
   const loginPasswordHandler = (e) => {
     let i = e.target.value;
     setLoginPassword(i);
@@ -231,6 +237,47 @@ const Profile = () => {
     let i = e.target.value;
     setCheckPassword(i);
   };
+  const registerNickNameHandler=async(e)=>{
+   let i = e.target.value;
+   if(i==''){
+    setNickShit('Никнейм не должен содержать пробелов')
+          setIsNickNamePlaced(true)
+          return
+   }
+   let check = i.split('')
+   if(check.length<4){
+    setNickShit('Никнейм слишком короткий')
+    setIsNickNamePlaced(true)
+    return
+   }else if(check.length>16){
+    setNickShit('Никнейм слишком длинный')
+    setIsNickNamePlaced(true)
+    return
+   }
+   console.log(check)
+   setNickName(i);
+    for(let i = 0; i<check.length; i++){
+        if(check[i]==''||check[i]==' '){
+          setNickShit('Никнейм не должен содержать пробелов')
+          setIsNickNamePlaced(true)
+          return
+        }
+    }
+    try {
+      const docRef = collection(db, "users_data");
+      const q = query(docRef, where("nick", "==", nickName));
+      const querySnapshot = await getDocs(q); 
+    if (!querySnapshot.empty) {
+      setNickShit('Никнейм занят')
+      setIsNickNamePlaced(true);
+      return
+    } else {
+      setIsNickNamePlaced(false);
+    }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const authHandler = async () => {
     signInWithEmailAndPassword(auth, loginEmail, loginPassword)
@@ -249,7 +296,7 @@ const Profile = () => {
       });
     // setUserUID(user.uid);
   };
-  const registerHandler = () => {
+  const registerHandler = async() => {
     const item = document.getElementById("registerInput");
     const item2 = document.getElementById("registerInput2");
     const check = registerPassword == checkPassword;
@@ -259,8 +306,16 @@ const Profile = () => {
       createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
         .then((userCredential) => {
           setUser(userCredential.user.uid);
+          try {
+            const docRef = doc(db, "users_data", `${userCredential.user.uid}`);
+           setDoc(docRef, {nick:nickName});
+            
+          } catch (error) {
+            console.error(error)
+          }
           dispatch({ type: "SET_USER", payload: user.uid });
           setIsAuth(true);
+          navigate('/')
         })
         .catch((error) => {
           setIsAuth(false);
@@ -407,6 +462,18 @@ const Profile = () => {
                       placeholder="Email"
                       onChange={(e) => registerEmailHandler(e)}
                     />
+                      <input
+                        id="Name"
+                        placeholder="Введите никнейм"
+                        type="text"
+                        minlength="4" maxlength="16"
+                        onChange={(e) => registerNickNameHandler(e)}
+                      />
+                     {isNickNamePlaced?
+                         <p style={{color:'red'}}>{NickShit}</p>:
+
+                         <p style={{color:'green'}}>Ник не занят</p>
+                    }
                     <input
                       id="registerInput"
                       placeholder="Введите пароль"
@@ -419,6 +486,7 @@ const Profile = () => {
                       onChange={(e) => checkPasswordHandler(e)}
                       type="password"
                     />
+                    
                     <button onClick={() => registerHandler()}>ОК</button>
                   </div>
                 )}
@@ -511,6 +579,7 @@ const Profile = () => {
                   type="file"
                   style={{ display: "none" }}
                   onChange={(e) => handleFileChange(e)}
+                  accept="image/jpeg, image/png, image/bmp, image/jpg"
                 />
                 <label id="uploadButton" htmlFor="fileInput">
                   Выбрать файл

@@ -66,19 +66,24 @@ margin-top: 10px;
 .main_frame{
     background-color: rgb(90, 92, 91);
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(3, minmax(20px, auto)); 
 
 
    
 }
 .set_main{
-  margin-top: 2px;
+  text-decoration: none;
+    margin-top: 2px;
     margin-right: 10px;
     background-color: bisque;
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 300px;
+}
+.set_main h1{
+  font-size: 24px;
+  text-decoration: none;
 }
 .desc_div_small{
   padding-left: 5px;
@@ -166,4 +171,105 @@ margin-top: 10px;
     box-shadow: 30px 0 0 #fff;
     margin-top: 0;
   }
+}
+
+.pagination_div{
+  background-color:rgb(90, 92, 91);
+  padding-left: 10px;
+  padding-bottom: 200px;
+  display: flex;
+  flex-direction: row;
+}
+.pagination_div p{
+  margin-right:7px;
+  font-size: large;
+}
+.page_p1{
+  color: #fff;
+}
+.chat_div{
+  font-size: small;
+  position: fixed;
+  bottom: 100px;
+  right: 10px;
+  width:190px;
+  height:300px;
+  background-color: #a5a59c;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(117, 114, 92, 0.534);
+  transition: all 0.2s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.chat_div_esc_div{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  width: 100%;
+}
+.chat_div_esc_div button{
+width: 20px;
+height: 20px;
+cursor: pointer;
+}
+.chat_div_message_div{
+  
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+  /* white-space: nowrap; */
+}
+.chat_send_div{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  
+}
+.chat_send_div button{
+  width: fit-content;
+  height: fit-content;
+  padding-left: 8.5px;
+  padding-right: 8.5px;
+  padding-bottom: 4px;
+  border: 1px solid #580679;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  font-size: 24px;
+  color: #580679;
+  font-weight:900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.chat_send_div_textarea{
+  padding-left: 2px;
+  resize: none;
+  width: 140px;
+  font-size: smaller;
+  overflow-y: hidden;
+  height: 40px;
+  max-height: 170px
+}
+.chat_icon{
+  font-size: 30px;
+  position: fixed;
+  bottom: 100px;
+  right: 10px;
+  background-color: #fff;
+  padding: 12px;
+  border-radius: 30%;
+  box-shadow: 0px 10px 20px rgba(117, 114, 92, 0.534);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.chat_icon:hover{
+ transition: all 0.2s;
+  background-color: #aef1f1;
+ 
+  border-radius: 35%;
+  box-shadow: 0px 10px 20px rgba(13, 80, 119, 0.534);
 }
