@@ -13,6 +13,10 @@
   align-items: center;
   justify-content: center;
 }
+.personal_desc_div_nick{
+  border-bottom:2px solid rgb(83, 83, 83) ;
+  
+}
 .img_part {
   width: 70%;
 }

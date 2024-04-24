@@ -2,13 +2,18 @@ import { SET_USER } from "./actions";
 
 const initialState = {
   user: null,
+  nickname:null,
 };
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
       return {
         ...state,
-        user: action.payload,
+        user:{
+          uid: action.payload.uid,
+          nickname: action.payload.nickname
+        } 
+          
       };
 
     default:

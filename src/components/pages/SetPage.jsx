@@ -19,7 +19,7 @@ const SetPage = () => {
   useEffect(()=>{
     const btnvot = document.getElementById('btnVoted');
     const getUsersVote=async()=>{
-      const docRef = doc(firestore, "users_data", user);
+      const docRef = doc(firestore, "users_data", user.uid);
       try {
         const doctimed = await getDoc(docRef)
         const docData = doctimed.data()
@@ -77,7 +77,7 @@ const SetPage = () => {
     let checkvoted = true;
      if(user!==null){
       try {
-        const docRef = doc(firestore, "users_data", user);
+        const docRef = doc(firestore, "users_data", user.uid);
         const docdata = await getDoc(docRef)
         
            dtata = docdata.data()
@@ -91,8 +91,8 @@ const SetPage = () => {
         
       }
       try {
-      console.log('прокнуло',user)
-      const docRef = doc(firestore, "users_data", user);
+      console.log('прокнуло',user.uid)
+      const docRef = doc(firestore, "users_data", user.uid);
       const docSnap = await getDoc(docRef);
       const userData =docSnap.data()
   
@@ -199,7 +199,7 @@ const SetPage = () => {
       btnvot.style.color = 'yellow'
     }
     try{
-      const docRef = doc(firestore, "users_data", user);
+      const docRef = doc(firestore, "users_data", user.uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         let pepe
@@ -257,6 +257,7 @@ const SetPage = () => {
             }
             
             setFormattedData({
+              nickname:docData.nick,
               id: idSet,
               name: nameSet,
               description: docData.description,
@@ -306,10 +307,8 @@ const SetPage = () => {
   }, [setId]);
 
   return (
-    <div>
-      <h1>Set Page</h1>
-
-      {formattedData ? (
+    <div style={{marginTop:'5px'}}>
+            {formattedData ? (
         <div className="main_personal_div">
           <div>
             <h1>{formattedData.name}</h1>
@@ -405,6 +404,8 @@ const SetPage = () => {
             </div>
           </div>
           <div className="personal_desc_div">
+            <p className="personal_desc_div_nick">Создатель: {formattedData.nickname}</p>
+            <p>Описание:</p>
             <p>{formattedData.description}</p>
           </div>
         </div>
@@ -414,7 +415,7 @@ const SetPage = () => {
       <div className="main_personal_div_raiting">
         <div >
         <p>Оценить комплект : </p>
-        <p className="main_personal_div_raiting_star" id="star_check">★</p>
+        <p className="main_personal_div_raiting_star" id="star_check"></p>
         {user?
         <div className="main_personal_div_raiting_btns">
 

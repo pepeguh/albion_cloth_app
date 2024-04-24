@@ -5,7 +5,6 @@ import { getDoc, doc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { firestore } from "../../firebase";
 const Header = () => {
-  // const [user, setUser]=useState(useSelector((state)=>state.user))
   const [userIMG, setUserIMG] = useState("");
 
   const user = useSelector((state) => state.user);
@@ -15,7 +14,7 @@ const Header = () => {
       console.log(user);
       const fetchImg = async () => {
         try {
-          const docRef = doc(firestore, "users_data", user);
+          const docRef = doc(firestore, "users_data", user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists()) {
             setUserIMG(docSnap.data());
@@ -39,12 +38,16 @@ const Header = () => {
             Home
           </Link>
         </div>
-
+    <div style={{display:'flex', alignItems:'center',color:'#c3d6d1'}}>
+         {user&&
+          <p style={{marginRight:'10px',fontSize:'large'}}>{user.nickname}</p>}
         <div className="header_avatar">
           <Link to="/profile" className="header_avatar_link">
             {user ? <img src={userIMG.picture} /> : <span>?</span>}
           </Link>
         </div>
+
+    </div>
       </div>
     </div>
   );

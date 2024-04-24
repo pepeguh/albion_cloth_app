@@ -330,11 +330,12 @@ const SetCreation = () => {
     } else {
       console.log("ВСЁ ЗАПОЛНЕНО, ВСТАВЛЯЮ");
       // name:nameChange,
-      let semigroundName = `${user} ${nameChange}`
+      let semigroundName = `${user.uid} ${nameChange}`
       let almosthere = semigroundName.split(' ').join('_')
       semiSet = {
         groundName:almosthere,
-        user:user,
+        user:user.uid,
+        nick:user.nickname,
         head: head,
         cape: cape,
         weapon: weapon,
@@ -347,7 +348,7 @@ const SetCreation = () => {
         categories:selectedCategories
       };
       try {
-        const docRef = doc(db, "sets", `${user} ${nameChange}`);
+        const docRef = doc(db, "sets", `${user.uid} ${nameChange}`);
         await setDoc(docRef, semiSet);
         console.log("Document written with ID: ", docRef.id);
         navigate('/profile')
