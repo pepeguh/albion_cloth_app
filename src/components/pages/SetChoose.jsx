@@ -13,7 +13,7 @@ const SetChoose = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const baseUrl = "https://render.albiononline.com/v1/item/T8_";
+  const baseUrl = "https://render.albiononline.com/v1/item/";
   const categoriesList = ["gank", "mist", "PVE", "CD"];
   const setsPerPage = 9;
   const indexOfLastSet = currentPage * setsPerPage;
@@ -69,14 +69,14 @@ const SetChoose = () => {
               name: timeName,
               description: setData.description,
               categories: setData.categories,
-              head: baseUrl + setData.head.uniqueName,
-              chest: baseUrl + setData.chest.uniqueName,
-              boots: baseUrl + setData.boots.uniqueName,
-              weapon: baseUrl + setData.weapon.uniqueName,
-              off_hand: baseUrl + setData.off_hand.uniqueName,
-              cape: baseUrl + setData.cape.uniqueName,
-              potion: baseUrl + setData.potion.uniqueName,
-              food: baseUrl + setData.food.uniqueName,
+              head: baseUrl + setData.head.name,
+              chest: baseUrl + setData.chest.name,
+              boots: baseUrl + setData.boots.name,
+              weapon: baseUrl + setData.weapon.name,
+              off_hand: baseUrl + setData.off_hand.name,
+              cape: baseUrl + setData.cape.name,
+              potion: baseUrl + setData.potion.name,
+              food: baseUrl + setData.food.name,
             };
 
             data.push(formattedData);
@@ -175,12 +175,12 @@ const SetChoose = () => {
             ))}
            
             {isChatOpen ? (
-             user&&<div>
+             user&&user.uid&&<div>
                
                 <Chat toggleChat={chatHandler} className="chat_div" />
               </div>
             ) : (
-              user&&<div onClick={chatHandler}>
+              user&&user.uid&&<div onClick={chatHandler}>
                 <IoChatboxEllipsesOutline className="chat_icon" />
               </div>
             )}

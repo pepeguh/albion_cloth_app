@@ -15,7 +15,7 @@ const SetPage = () => {
   
   console.log(setId)
   
-  const baseUrl = "https://render.albiononline.com/v1/item/T8_";
+  const baseUrl = "https://render.albiononline.com/v1/item/";
   useEffect(()=>{
     const btnvot = document.getElementById('btnVoted');
     const getUsersVote=async()=>{
@@ -263,36 +263,36 @@ const SetPage = () => {
               description: docData.description,
               categories: docData.categories,
               head: {
-                img: baseUrl + docData.head.uniqueName,
-                name: docData.head.ru_name,
+                img: baseUrl + docData.head.name,
+                name: docData.head.ruName,
               },
               chest: {
-                img: baseUrl + docData.chest.uniqueName,
-                name: docData.chest.ru_name,
+                img: baseUrl + docData.chest.name,
+                name: docData.chest.ruName,
               },
               boots: {
-                img: baseUrl + docData.boots.uniqueName,
-                name: docData.boots.ru_name,
+                img: baseUrl + docData.boots.name,
+                name: docData.boots.ruName,
               },
               weapon: {
-                img: baseUrl + docData.weapon.uniqueName,
-                name: docData.weapon.ru_name,
+                img: baseUrl + docData.weapon.name,
+                name: docData.weapon.ruName,
               },
               off_hand: {
-                img: baseUrl + docData.off_hand.uniqueName,
-                name: docData.off_hand.ru_name,
+                img: baseUrl + docData.off_hand.name,
+                name: docData.off_hand.ruName,
               },
               cape: {
-                img: baseUrl + docData.cape.uniqueName,
-                name: docData.cape.ru_name,
+                img: baseUrl + docData.cape.name,
+                name: docData.cape.ruName,
               },
               potion: {
-                img: baseUrl + docData.potion.uniqueName,
-                name: docData.potion.ru_name,
+                img: baseUrl + docData.potion.name,
+                name: docData.potion.ruName,
               },
               food: {
-                img: baseUrl + docData.food.uniqueName,
-                name: docData.food.ru_name,
+                img: baseUrl + docData.food.name,
+                name: docData.food.ruName,
               },
             });
           } else {

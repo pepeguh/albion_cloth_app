@@ -20,12 +20,18 @@
 }
 .header_home{
   background: linear-gradient(0.35turn, #8064e6, #e04721);
-  width: 10%;
+  width: max-content;
+  height: max-content;
   display: flex;
   align-items: center;
   justify-content: center;
   border:2px solid var(--border-home) ;
-
+}
+.header_home_text{
+  padding-left: 18px;
+  padding-right: 18px;
+  padding-top: 11px;
+  padding-bottom: 11px;
 }
 
 .header_link{

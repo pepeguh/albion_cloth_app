@@ -3,6 +3,7 @@ import { SET_USER } from "./actions";
 const initialState = {
   user: null,
   nickname:null,
+  uid:null,
 };
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {

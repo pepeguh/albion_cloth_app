@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 import { firestore } from "../../firebase";
 const Header = () => {
   const [userIMG, setUserIMG] = useState("");
-
+  
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (user) {
+    if (user&&user.uid) {
       console.log(user);
       const fetchImg = async () => {
         try {
@@ -27,23 +27,29 @@ const Header = () => {
         }
       };
       fetchImg();
+    }else{
+      setUserIMG('?');
     }
   }, [user]);
 
   return (
     <div className="main_header">
       <div className="main_container">
-        <div className="header_home">
           <Link to="/" className="header_link">
-            Home
-          </Link>
+        <div className="header_home">
+            <p className="header_home_text">
+              Home
+              
+              </p>
         </div>
+          </Link>
     <div style={{display:'flex', alignItems:'center',color:'#c3d6d1'}}>
          {user&&
           <p style={{marginRight:'10px',fontSize:'large'}}>{user.nickname}</p>}
         <div className="header_avatar">
           <Link to="/profile" className="header_avatar_link">
-            {user ? <img src={userIMG.picture} /> : <span>?</span>}
+            {userIMG=='?'? <span>{userIMG}</span> : <img src={userIMG.picture}/>            }
+            
           </Link>
         </div>
 

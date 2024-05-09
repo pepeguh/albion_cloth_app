@@ -4,157 +4,159 @@ import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import test2 from "../elements/items";
 const SetCreation = () => {
+
   const test1 = [
     {
       ru_name: "Песнь заката",
       index: "6990",
-      uniqueName: "2H_ARCANE_RINGPAIR_AVALON",
+      name: "2H_ARCANE_RINGPAIR_AVALON",
       slot: "weapon",
     },
     {
       ru_name: "Факел",
       index: "3791",
-      uniqueName: "OFF_TORCH",
+      name: "OFF_TORCH",
       slot: "off_hand",
     },
     {
       ru_name: "Кинжал",
       index: "3791",
-      uniqueName: "MAIN_DAGGER",
+      name: "MAIN_DAGGER",
       slot: "weapon",
     },
     {
       ru_name: "Капюшон охотника",
       index: "3791",
-      uniqueName: "HEAD_LEATHER_SET2",
+      name: "HEAD_LEATHER_SET2",
       slot: "head",
     },
     {
       ru_name: "Плащ нежити",
       index: "3791",
-      uniqueName: "CAPEITEM_UNDEAD",
+      name: "CAPEITEM_UNDEAD",
       slot: "cape",
     },
     {
       ru_name: "Лук бадона",
       index: "3791",
-      uniqueName: "2H_BOW_KEEPER",
+      name: "2H_BOW_KEEPER",
       slot: "weapon",
     },
     {
       ru_name: "Куртка туманного охотника",
       index: "3791",
-      uniqueName: "ARMOR_LEATHER_FEY",
+      name: "ARMOR_LEATHER_FEY",
       slot: "chest",
     },
     {
       ru_name: "Сандалии ученого",
       index: "3791",
-      uniqueName: "SHOES_CLOTH_SET1",
+      name: "SHOES_CLOTH_SET1",
       slot: "boots",
     },
     {
       ru_name: "Эликсир невидимости",
       index: "3791",
-      uniqueName: "POTION_CLEANSE",
+      name: "POTION_CLEANSE",
       slot: "potion",
     },
     {
       ru_name: "Жаркое из говядины",
       index: "3791",
-      uniqueName: "MEAL_STEW",
+      name: "MEAL_STEW",
       slot: "food",
     },
     {
       ru_name: "Капюшон охотника",
       index: "3791",
-      uniqueName: "HEAD_LEATHER_SET2",
+      name: "HEAD_LEATHER_SET2",
       slot: "head",
     },
     {
       ru_name: "Плащ нежити",
       index: "3791",
-      uniqueName: "CAPEITEM_UNDEAD",
+      name: "CAPEITEM_UNDEAD",
       slot: "cape",
     },
     {
       ru_name: "Лук бадона",
       index: "3791",
-      uniqueName: "2H_BOW_KEEPER",
+      name: "2H_BOW_KEEPER",
       slot: "weapon",
     },
     {
       ru_name: "Куртка туманного охотника",
       index: "3791",
-      uniqueName: "ARMOR_LEATHER_FEY",
+      name: "ARMOR_LEATHER_FEY",
       slot: "chest",
     },
     {
       ru_name: "Сандалии ученого",
       index: "3791",
-      uniqueName: "SHOES_CLOTH_SET1",
+      name: "SHOES_CLOTH_SET1",
       slot: "boots",
     },
     {
       ru_name: "Эликсир невидимости",
       index: "3791",
-      uniqueName: "POTION_CLEANSE",
+      name: "POTION_CLEANSE",
       slot: "potion",
     },
     {
       ru_name: "Жаркое из говядины",
       index: "3791",
-      uniqueName: "MEAL_STEW",
+      name: "MEAL_STEW",
       slot: "food",
     },
     {
       ru_name: "Капюшон охотника",
       index: "3791",
-      uniqueName: "HEAD_LEATHER_SET2",
+      name: "HEAD_LEATHER_SET2",
       slot: "head",
     },
     {
       ru_name: "Плащ нежити",
       index: "3791",
-      uniqueName: "CAPEITEM_UNDEAD",
+      name: "CAPEITEM_UNDEAD",
       slot: "cape",
     },
     {
       ru_name: "Лук бадона",
       index: "3791",
-      uniqueName: "2H_BOW_KEEPER",
+      name: "2H_BOW_KEEPER",
       slot: "weapon",
     },
     {
       ru_name: "Куртка туманного охотника",
       index: "3791",
-      uniqueName: "ARMOR_LEATHER_FEY",
+      name: "ARMOR_LEATHER_FEY",
       slot: "chest",
     },
     {
       ru_name: "Сандалии ученого",
       index: "3791",
-      uniqueName: "SHOES_CLOTH_SET1",
+      name: "SHOES_CLOTH_SET1",
       slot: "boots",
     },
     {
       ru_name: "Эликсир невидимости",
       index: "3791",
-      uniqueName: "POTION_CLEANSE",
+      name: "POTION_CLEANSE",
       slot: "potion",
     },
     {
       ru_name: "Жаркое из говядины",
       index: "3791",
-      uniqueName: "MEAL_STEW",
+      name: "MEAL_STEW",
       slot: "food",
     },
   ];
   const categoriesList = ['gank', 'mist', 'PVE', 'CD'];
   const [nameChange, setNameChange] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState(test1);
+  const [searchResults, setSearchResults] = useState(test2);
   const [currentItem, setCurrentItem] = useState({});
   const [head, setHead] = useState({});
   const [cape, setCape] = useState({});
@@ -167,7 +169,7 @@ const SetCreation = () => {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [description, setDescription] = useState("Без описания");
   const navigate = useNavigate();
-  const baseUrl = "https://render.albiononline.com/v1/item/T8_";
+  const baseUrl = "https://render.albiononline.com/v1/item/";
   const test0 =
     "https://render.albiononline.com/v1/item/PLAYERISLAND_FURNITUREITEM_STONE_MAGIC_EMBLEM_GROUND_B";
   const db = firestore;
@@ -214,8 +216,8 @@ const SetCreation = () => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
 
-    const filteredResults = test1.filter((item) =>
-      item.ru_name.toLowerCase().includes(value)
+    const filteredResults = test2.filter((item) =>
+      item.ruName.toLowerCase().includes(value)
     );
     setSearchResults(filteredResults);
   };
@@ -265,7 +267,7 @@ const SetCreation = () => {
   const weaponDropHandler = (e, item) => {
     if (currentItem.slot == "weapon") {
       setOff_hand({});
-      let check = currentItem.uniqueName.split("");
+      let check = currentItem.name.split("");
       for (let i = 0; i < check.length; i++) {
         if (check[i] + check[i + 1] == "2H") {
           setOff_hand(currentItem);
@@ -283,9 +285,9 @@ const SetCreation = () => {
   const off_handDropHandler = (e, item) => {
     let check = [];
     let YN = false;
-    if (weapon.uniqueName) {
+    if (weapon.name) {
       YN = false;
-      check = weapon.uniqueName.split("");
+      check = weapon.name.split("");
       for (let i = 0; i < check.length; i++) {
         if (check[i] + check[i + 1] == "2H") {
           YN = true;
@@ -388,8 +390,8 @@ const SetCreation = () => {
               onDragEnd={(e) => dragEndHandler(e)}
               onDragLeave={(e) => dragEndHandler(e)}
             >
-              {head.uniqueName ? (
-                <img draggable={false} src={baseUrl + head.uniqueName} />
+              {head.name ? (
+                <img draggable={false} src={baseUrl + head.name} />
               ) : (
                 <img draggable={false} src={test0} />
               )}
@@ -402,8 +404,8 @@ const SetCreation = () => {
               onDragEnd={(e) => dragEndHandler(e)}
               onDragLeave={(e) => dragEndHandler(e)}
             >
-              {cape.uniqueName ? (
-                <img draggable={false} src={baseUrl + cape.uniqueName} />
+              {cape.name ? (
+                <img draggable={false} src={baseUrl + cape.name} />
               ) : (
                 <img draggable={false} src={test0} />
               )}
@@ -416,8 +418,8 @@ const SetCreation = () => {
               onDragEnd={(e) => dragEndHandler(e)}
               onDragLeave={(e) => dragEndHandler(e)}
             >
-              {weapon.uniqueName ? (
-                <img draggable={false} src={baseUrl + weapon.uniqueName} />
+              {weapon.name ? (
+                <img draggable={false} src={baseUrl + weapon.name} />
               ) : (
                 <img draggable={false} src={test0} />
               )}
@@ -430,8 +432,8 @@ const SetCreation = () => {
               onDragEnd={(e) => dragEndHandler(e)}
               onDragLeave={(e) => dragEndHandler(e)}
             >
-              {chest.uniqueName ? (
-                <img draggable={false} src={baseUrl + chest.uniqueName} />
+              {chest.name ? (
+                <img draggable={false} src={baseUrl + chest.name} />
               ) : (
                 <img draggable={false} src={test0} />
               )}
@@ -445,8 +447,8 @@ const SetCreation = () => {
               onDragEnd={(e) => dragEndHandler(e)}
               onDragLeave={(e) => dragEndHandler(e)}
             >
-              {off_hand.uniqueName ? (
-                <img draggable={false} src={baseUrl + off_hand.uniqueName} />
+              {off_hand.name ? (
+                <img draggable={false} src={baseUrl + off_hand.name} />
               ) : (
                 <img draggable={false} src={test0} />
               )}
@@ -459,8 +461,8 @@ const SetCreation = () => {
               onDragEnd={(e) => dragEndHandler(e)}
               onDragLeave={(e) => dragEndHandler(e)}
             >
-              {potion.uniqueName ? (
-                <img draggable={false} src={baseUrl + potion.uniqueName} />
+              {potion.name ? (
+                <img draggable={false} src={baseUrl + potion.name} />
               ) : (
                 <img draggable={false} src={test0} />
               )}
@@ -473,8 +475,8 @@ const SetCreation = () => {
               onDragEnd={(e) => dragEndHandler(e)}
               onDragLeave={(e) => dragEndHandler(e)}
             >
-              {boots.uniqueName ? (
-                <img draggable={false} src={baseUrl + boots.uniqueName} />
+              {boots.name ? (
+                <img draggable={false} src={baseUrl + boots.name} />
               ) : (
                 <img draggable={false} src={test0} />
               )}
@@ -487,8 +489,8 @@ const SetCreation = () => {
               onDragEnd={(e) => dragEndHandler(e)}
               onDragLeave={(e) => dragEndHandler(e)}
             >
-              {food.uniqueName ? (
-                <img draggable={false} src={baseUrl + food.uniqueName} />
+              {food.name ? (
+                <img draggable={false} src={baseUrl + food.name} />
               ) : (
                 <img draggable={false} src={test0} />
               )}
@@ -551,8 +553,8 @@ const SetCreation = () => {
               key={index}
               className="puzzle_item"
             >
-              <img draggable={false} src={baseUrl + item.uniqueName} />
-              <span>{item.ru_name}</span>
+              <img draggable={false} src={baseUrl + item.name} />
+              <span>{item.ruName}</span>
             </div>
           ))}
         </div>

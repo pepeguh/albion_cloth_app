@@ -1,6 +1,7 @@
 .top_frame{
     display: flex;
     flex-direction: row;
+    
 }
 .top_frame_label{
     margin-left: 6px;
@@ -60,6 +61,8 @@
 }
 
 .main_main_frame{
+  border-top: 2px solid rgb(133, 131, 131);
+  border-bottom: 2px solid rgb(133, 131, 131);
 margin-top: 10px;
 }
 

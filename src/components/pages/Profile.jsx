@@ -33,7 +33,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const db = firestore;
-  const baseUrl = "https://render.albiononline.com/v1/item/T8_";
+  const baseUrl = "https://render.albiononline.com/v1/item/";
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -73,16 +73,9 @@ const Profile = () => {
 
   const trashBtnArr = document.getElementsByClassName("trash");
 
-  // const schethandler=()=>{
-  //   setSchet(schet++)
-  //   return schet
-  // }
-  // const schet1handler=()=>{
-  //   setSchet1(schet1++)
-  //   return schet1
-  // }
   const testUser = () => {
-    if (check1 !== null) {
+    console.log("ВОТ БЛЯТТЬ СМОТРИ - - -",user)
+    if (user !== null && user.uid !== null) {
       return true;
     } else {
       return false;
@@ -94,6 +87,7 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       if (user !== "" && user !== undefined) {
+        
         dispatch({ type: "SET_USER", payload: user });
       }
     }
@@ -153,7 +147,7 @@ const Profile = () => {
         console.error("Ошибка при запросе данных из Firestore:", error);
       }
     };
-    if (user) {
+    if (user &&user.uid) {
       console.log("ПРОКАЕТ ЗАПРОС НА СЕТЫ с этими данными - ", user.uid);
       downloadUserSets();
     } else {
@@ -288,7 +282,8 @@ const Profile = () => {
       const nickname = timedDoc.data().nick;
 
       setUser({ uid: userUid, nickname: nickname });
-      dispatch(setUser({ uid: userUid, nickname: nickname }));
+      dispatch({ type: "SET_USER", payload: { uid: userUid, nickname: nickname }})
+
       console.log(user);
     } catch (error) {
       console.error(error);
@@ -309,7 +304,8 @@ const Profile = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.error("ОШИБКА", errorCode, errorMessage);
-        dispatch({ type: "SET_USER", payload: null });
+        dispatch({ type: "SET_USER", payload: { uid: null, nickname: null }})
+
         setIsAuth(false);
       });
     // setUserUID(user.uid);
@@ -330,13 +326,15 @@ const Profile = () => {
           } catch (error) {
             console.error(error);
           }
-          dispatch(setUser({ uid: user.uid }));
+          dispatch({ type: "SET_USER", payload: { uid: userCredential.user.uid, nickname: nickName }})
+
           setIsAuth(true);
           navigate("/");
         })
         .catch((error) => {
           setIsAuth(false);
-          dispatch({ type: "SET_USER", payload: null });
+          dispatch({ type: "SET_USER", payload: { uid: null, nickname: null }})
+
           const errorCode = error.code;
           const errorMessage = error.message;
           console.error("ОШИБКА", errorCode, errorMessage);
@@ -354,8 +352,9 @@ const Profile = () => {
       .then(() => {
         // Sign-out successful.
         console.log("ТЫ ВЫШЕЛ");
-        dispatch({ type: "SET_USER", payload: null });
         setIsAuth(false);
+        dispatch({ type: "SET_USER", payload: { uid: null, nickname: null }})
+        
       })
       .catch((error) => {
         console.log("ТЫ НЕ ВЫШЕЛ, ОШИБКА:", error);
@@ -448,13 +447,49 @@ const Profile = () => {
     console.log('меняю ник на',item)
     const docRef = doc(db,'users_data',user.uid)
     try{
+      if(item==''||item==' '){
+        i.value = ''
+        settingsVisibleHandler()
+        return
+      }
       await updateDoc(docRef, { nick: item });
       dispatch({ type: "SET_USER", payload: {uid:user.uid,nickname:item }});
-    //ВСЁ РАБОТАЕТ, НУЖНО СДЕЛАТЬ ЧТОБЫ ЕЩЕ НИКНЕЙМ В СЕТАХ МЕНЯЛСЯ 
-
+    
+    i.value = '';
+    settingsVisibleHandler();
+    setNickShit("Никнейм не должен содержать пробелов");
+    setIsNickNamePlaced(true);
+    changeNickInSets(item);
     }catch(e){
       console.error('Ошибка при изменении никнейма - ',e)
     }
+  }
+  const changeNickInSets = async(changedNICK)=>{
+    try{
+    
+    const usersDataQuery = query(collection(db, "sets"));
+    const usersDataSnapshot = await getDocs(usersDataQuery);
+
+    const promises = usersDataSnapshot.docs.map(async (docSnapshot) => {
+      const setData = docSnapshot.data();
+
+      if (setData.user && setData.user==user.uid) {
+       
+
+        await updateDoc(doc(db, "sets", docSnapshot.id), {
+          nick: changedNICK,
+        });
+      }
+    });
+
+    await Promise.all(promises);
+    console.log("Успешно изменены никнеймы во всех ваших комплектах");
+  } catch (error) {
+    console.error(
+      "Ошибка при измененнии никнеймов:",
+      error
+    );
+  }
   }
 
   return (
@@ -500,8 +535,8 @@ const Profile = () => {
                       id="Name"
                       placeholder="Введите никнейм"
                       type="text"
-                      minlength="4"
-                      maxlength="16"
+                      minLength="4"
+                      maxLength="16"
                       onChange={(e) => registerNickNameHandler(e)}
                     />
                     {isNickNamePlaced ? (
@@ -550,7 +585,7 @@ const Profile = () => {
                     >
                       <img
                         className="create_small_mySets_set_img"
-                        src={set.weapon ? baseUrl + set.weapon.uniqueName : ""}
+                        src={set.weapon ? baseUrl + set.weapon.name : ""}
                       ></img>
                     </Link>
                     <p className="create_small_mySets_set_p">{set.id}</p>
@@ -576,7 +611,7 @@ const Profile = () => {
                       >
                         <img
                           className="create_small_mySets_set_img"
-                          src={baseUrl + set.weapon.uniqueName}
+                          src={baseUrl + set.weapon.name}
                         ></img>
                       </Link>
                       <p className="create_small_mySets_set_p">{set.id}</p>
@@ -664,8 +699,8 @@ const Profile = () => {
                       id="NameChange"
                       placeholder="Введите никнейм"
                       type="text"
-                      minlength="4"
-                      maxlength="16"
+                      minLength="4"
+                      maxLength="16"
                       onChange={(e) => registerNickNameHandler(e)}
                     />
                    
