@@ -234,11 +234,24 @@
 }
 .puzzle_item span {
   max-width: 80%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+   white-space: nowrap;
   background-color: antiquewhite !important;
   border-radius: 20px;
   padding-left: 5px;
   padding-right: 5px;
+  transition: all 0.3s ease-in-out;
+}
+.puzzle_item:hover span{
+  transition: all 0.3s ease-in-out;
+  max-width: 81%;
+  overflow-wrap: break-word;
+  white-space: normal;
+
+  overflow: visible;
+  text-overflow: unset; 
+  /* padding-bottom: 3px; */
+  padding-left: 7px;
+  
 }

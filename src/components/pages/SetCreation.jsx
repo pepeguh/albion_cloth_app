@@ -6,153 +6,6 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import test2 from "../elements/items";
 const SetCreation = () => {
-
-  const test1 = [
-    {
-      ru_name: "Песнь заката",
-      index: "6990",
-      name: "2H_ARCANE_RINGPAIR_AVALON",
-      slot: "weapon",
-    },
-    {
-      ru_name: "Факел",
-      index: "3791",
-      name: "OFF_TORCH",
-      slot: "off_hand",
-    },
-    {
-      ru_name: "Кинжал",
-      index: "3791",
-      name: "MAIN_DAGGER",
-      slot: "weapon",
-    },
-    {
-      ru_name: "Капюшон охотника",
-      index: "3791",
-      name: "HEAD_LEATHER_SET2",
-      slot: "head",
-    },
-    {
-      ru_name: "Плащ нежити",
-      index: "3791",
-      name: "CAPEITEM_UNDEAD",
-      slot: "cape",
-    },
-    {
-      ru_name: "Лук бадона",
-      index: "3791",
-      name: "2H_BOW_KEEPER",
-      slot: "weapon",
-    },
-    {
-      ru_name: "Куртка туманного охотника",
-      index: "3791",
-      name: "ARMOR_LEATHER_FEY",
-      slot: "chest",
-    },
-    {
-      ru_name: "Сандалии ученого",
-      index: "3791",
-      name: "SHOES_CLOTH_SET1",
-      slot: "boots",
-    },
-    {
-      ru_name: "Эликсир невидимости",
-      index: "3791",
-      name: "POTION_CLEANSE",
-      slot: "potion",
-    },
-    {
-      ru_name: "Жаркое из говядины",
-      index: "3791",
-      name: "MEAL_STEW",
-      slot: "food",
-    },
-    {
-      ru_name: "Капюшон охотника",
-      index: "3791",
-      name: "HEAD_LEATHER_SET2",
-      slot: "head",
-    },
-    {
-      ru_name: "Плащ нежити",
-      index: "3791",
-      name: "CAPEITEM_UNDEAD",
-      slot: "cape",
-    },
-    {
-      ru_name: "Лук бадона",
-      index: "3791",
-      name: "2H_BOW_KEEPER",
-      slot: "weapon",
-    },
-    {
-      ru_name: "Куртка туманного охотника",
-      index: "3791",
-      name: "ARMOR_LEATHER_FEY",
-      slot: "chest",
-    },
-    {
-      ru_name: "Сандалии ученого",
-      index: "3791",
-      name: "SHOES_CLOTH_SET1",
-      slot: "boots",
-    },
-    {
-      ru_name: "Эликсир невидимости",
-      index: "3791",
-      name: "POTION_CLEANSE",
-      slot: "potion",
-    },
-    {
-      ru_name: "Жаркое из говядины",
-      index: "3791",
-      name: "MEAL_STEW",
-      slot: "food",
-    },
-    {
-      ru_name: "Капюшон охотника",
-      index: "3791",
-      name: "HEAD_LEATHER_SET2",
-      slot: "head",
-    },
-    {
-      ru_name: "Плащ нежити",
-      index: "3791",
-      name: "CAPEITEM_UNDEAD",
-      slot: "cape",
-    },
-    {
-      ru_name: "Лук бадона",
-      index: "3791",
-      name: "2H_BOW_KEEPER",
-      slot: "weapon",
-    },
-    {
-      ru_name: "Куртка туманного охотника",
-      index: "3791",
-      name: "ARMOR_LEATHER_FEY",
-      slot: "chest",
-    },
-    {
-      ru_name: "Сандалии ученого",
-      index: "3791",
-      name: "SHOES_CLOTH_SET1",
-      slot: "boots",
-    },
-    {
-      ru_name: "Эликсир невидимости",
-      index: "3791",
-      name: "POTION_CLEANSE",
-      slot: "potion",
-    },
-    {
-      ru_name: "Жаркое из говядины",
-      index: "3791",
-      name: "MEAL_STEW",
-      slot: "food",
-    },
-  ];
   const categoriesList = ['gank', 'mist', 'PVE', 'CD'];
   const [nameChange, setNameChange] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -266,13 +119,13 @@ const SetCreation = () => {
   };
   const weaponDropHandler = (e, item) => {
     if (currentItem.slot == "weapon") {
-      setOff_hand({});
-      let check = currentItem.name.split("");
-      for (let i = 0; i < check.length; i++) {
-        if (check[i] + check[i + 1] == "2H") {
-          setOff_hand(currentItem);
-        }
+  
+      if(currentItem.name.includes('2H')){
+        setOff_hand(currentItem);
+      }else if(off_hand.slot=="weapon"){
+        setOff_hand({});
       }
+    
 
       setWeapon(currentItem);
     }
