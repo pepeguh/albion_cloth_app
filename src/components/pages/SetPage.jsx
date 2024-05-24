@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { doc, getDoc,setDoc,updateDoc } from "firebase/firestore";
 import { firestore } from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
+// import Select from "react-select";
 import "../styles/SetPage.css";
 const SetPage = () => {
   const [formattedData, setFormattedData] = useState(null);
@@ -11,6 +12,7 @@ const SetPage = () => {
   const [choosedRait, setChoosedRait] = useState(null)
   const [user,setUser] = useState(useSelector((state) => state.user))
   const [isVoted, setIsVoted] = useState(null)
+  const [buildPrice, setBuildPrice] = useState(0)
   let timeSet, nameSet, idSet, fetchName;
   
   console.log(setId)
@@ -405,6 +407,8 @@ const SetPage = () => {
           </div>
           <div className="personal_desc_div">
             <p className="personal_desc_div_nick">Создатель: {formattedData.nickname}</p>
+           
+
             <p>Описание:</p>
             <p>{formattedData.description}</p>
           </div>

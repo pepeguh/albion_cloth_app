@@ -6,7 +6,18 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import test2 from "../elements/items";
 const SetCreation = () => {
-  const categoriesList = ['gank', 'mist', 'PVE', 'CD'];
+  const categoriesList = ["gank", "mist", "PVE", "CD"];
+  const categoriesSlots = [
+    "head",
+    "chest",
+    "boots",
+    "cape",
+    "weapon",
+    "off_hand",
+    "potion",
+    "food"
+  ];
+  const [displayItems,setDisplayItems]=useState(test2)
   const [nameChange, setNameChange] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState(test2);
@@ -19,14 +30,16 @@ const SetCreation = () => {
   const [potion, setPotion] = useState({});
   const [boots, setBoots] = useState({});
   const [food, setFood] = useState({});
-  const [selectedCategories, setSelectedCategories] = useState([])
+  const [isCategoryVisible, setIsCategoryVisible] = useState(false)
+  const [selectedItemsCategory, setSelectedItemsCategory] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [description, setDescription] = useState("Без описания");
   const navigate = useNavigate();
   const baseUrl = "https://render.albiononline.com/v1/item/";
   const test0 =
     "https://render.albiononline.com/v1/item/PLAYERISLAND_FURNITUREITEM_STONE_MAGIC_EMBLEM_GROUND_B";
   const db = firestore;
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     if (off_hand.slot == "weapon") {
       const elem = document.getElementById("item_off_hand");
@@ -48,32 +61,33 @@ const SetCreation = () => {
       user &&
       nameChange !== "" &&
       buttonSend
-    
     ) {
       buttonSend.style.backgroundColor = "#4c7c4c";
       buttonSend.style.cursor = "pointer";
-    } else if(!buttonSend){
-     
-    }else{
+    } else if (!buttonSend) {
+    } else {
       buttonSend.style.background = "#b13e3e";
       buttonSend.style.cursor = "not-allowed";
       console.log(nameChange);
       console.log("ЧТО ТО НЕ ЗАПОЛНЕНО");
     }
-  }, [head, cape, off_hand, weapon, potion, food, chest, boots, nameChange,user]);
+  }, [
+    head,
+    cape,
+    off_hand,
+    weapon,
+    potion,
+    food,
+    chest,
+    boots,
+    nameChange,
+    user,
+  ]);
   const renameHandler = (e) => {
     const value = e.target.value;
     setNameChange(value);
   };
-  const handleChange = (e) => {
-    const value = e.target.value.toLowerCase();
-    setSearchTerm(value);
-
-    const filteredResults = test2.filter((item) =>
-      item.ruName.toLowerCase().includes(value)
-    );
-    setSearchResults(filteredResults);
-  };
+ 
   const handleDescription = (e) => {
     const value = e.target.value;
     setDescription(value);
@@ -98,11 +112,10 @@ const SetCreation = () => {
     e.target.style.backgroundColor = "#92908d";
     // console.log("НЕ НАВОДИ НА МЕНЯ");
   };
- 
-// dropHandler(10, 'paket')
+
+  // dropHandler(10, 'paket')
 
   const dropHandler = (e, item) => {
-
     e.preventDefault();
     console.log("drop:", item);
   };
@@ -119,13 +132,11 @@ const SetCreation = () => {
   };
   const weaponDropHandler = (e, item) => {
     if (currentItem.slot == "weapon") {
-  
-      if(currentItem.name.includes('2H')){
+      if (currentItem.name.includes("2H")) {
         setOff_hand(currentItem);
-      }else if(off_hand.slot=="weapon"){
+      } else if (off_hand.slot == "weapon") {
         setOff_hand({});
       }
-    
 
       setWeapon(currentItem);
     }
@@ -179,18 +190,17 @@ const SetCreation = () => {
       !boots.slot ||
       !food.slot ||
       !user
-
     ) {
       console.log("ЧТО ТО НЕ ЗАПОЛНЕНО");
     } else {
       console.log("ВСЁ ЗАПОЛНЕНО, ВСТАВЛЯЮ");
       // name:nameChange,
-      let semigroundName = `${user.uid} ${nameChange}`
-      let almosthere = semigroundName.split(' ').join('_')
+      let semigroundName = `${user.uid} ${nameChange}`;
+      let almosthere = semigroundName.split(" ").join("_");
       semiSet = {
-        groundName:almosthere,
-        user:user.uid,
-        nick:user.nickname,
+        groundName: almosthere,
+        user: user.uid,
+        nick: user.nickname,
         head: head,
         cape: cape,
         weapon: weapon,
@@ -200,33 +210,89 @@ const SetCreation = () => {
         boots: boots,
         food: food,
         description: description,
-        categories:selectedCategories
+        categories: selectedCategories,
       };
       try {
         const docRef = doc(db, "sets", `${user.uid} ${nameChange}`);
         await setDoc(docRef, semiSet);
         console.log("Document written with ID: ", docRef.id);
-        navigate('/profile')
+        navigate("/profile");
       } catch (e) {
         console.error("Error adding document: ", e);
       }
       console.log(semiSet);
     }
   };
-  const handleCategoryToggle = (category)=>{
-    setSelectedCategories((prevCategories)=>{
-      if(prevCategories.includes(category)){
-        return prevCategories.filter((prevCategory)=>prevCategory!==category);
-      }else{
+  const changeCatVisibility = ()=>{
+    setIsCategoryVisible(!isCategoryVisible)
+  }
+ 
+  const filterByCategory = (items, category) => {
+    return items.filter((item) => item.slot.includes(category));
+  };
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value.toLowerCase());
+  };
+  const handleCategoryToggle1 = (category) => {
+    const items = {
+          head:document.getElementById("head"),
+          chest:document.getElementById("chest"),
+          boots:document.getElementById("boots"),
+          cape:document.getElementById("cape"),
+          potion:document.getElementById("potion"),
+          weapon:document.getElementById("weapon"),
+          off_hand:document.getElementById("off_hand"),
+          food:document.getElementById("food")
+        }
+        setSelectedItemsCategory([])
+        if(selectedItemsCategory[0]==category){
+          setSelectedItemsCategory([])
+          items[category].checked=false
+          return
+        }
+        for (const key in items) {
+          if (key !==category) {
+            items[key].checked=false
+          }
+        }
+        setSelectedItemsCategory([category])
+   
+  };
+  useEffect(() => {
+    let filteredResults = [...test2];
+
+    // Фильтрация по категории
+    if (selectedItemsCategory.length > 0) {
+      filteredResults = filterByCategory(filteredResults, selectedItemsCategory);
+    }
+
+    // Поиск
+    if (searchTerm !== "") {
+      filteredResults = filteredResults.filter((item) =>
+        item.ruName.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    setSearchResults(filteredResults);
+  }, [test2, searchTerm, selectedItemsCategory]);
+
+  const handleCategoryToggle = (category) => {
+    setSelectedCategories((prevCategories) => {
+      if (prevCategories.includes(category)) {
+        return prevCategories.filter(
+          (prevCategory) => prevCategory !== category
+        );
+      } else {
         return [...prevCategories, category];
       }
     });
   };
 
+  
+  
 
   return (
     <div className="main_div">
-      
       <div className="main_left_side ">
         <div className="semi_left_side">
           <input onChange={renameHandler} placeholder="Название" />
@@ -350,7 +416,7 @@ const SetCreation = () => {
               <span>{food.ru_name}</span>
             </div>
           </div>
-                
+
           <textarea
             placeholder="Описание..."
             className="left_side_description"
@@ -359,41 +425,61 @@ const SetCreation = () => {
           ></textarea>
 
           <div className="left_side_categories">
-          {categoriesList.map((category)=>(
-            <label className="left_side_label" key={category}>
-              <input
-              className={`input_${category}`}
-              type="checkbox"
-              checked={selectedCategories.includes(category)}
-              onChange={()=>handleCategoryToggle(category)}
-              />
-               {category}
-            </label>
-          ))}
+            {categoriesList.map((category) => (
+              <label className="left_side_label" key={category}>
+                <input
+                  className={`input_${category}`}
+                  type="checkbox"
+                  checked={selectedCategories.includes(category)}
+                  onChange={() => handleCategoryToggle(category)}
+                />
+                {category}
+              </label>
+            ))}
           </div>
-
         </div>
-        {user? 
-        <button
-          className="left_side_btn"
-          id="btn1"
-          onClick={() => publishSet()}
-        >
-          Опубликовать
-        </button>
-        :
-        <Link to={'/profile'} >Войдите чтобы создавать комплекты</Link>
-        }
+        {user ? (
+          <button
+            className="left_side_btn"
+            id="btn1"
+            onClick={() => publishSet()}
+          >
+            Опубликовать
+          </button>
+        ) : (
+          <Link to={"/profile"}>Войдите чтобы создавать комплекты</Link>
+        )}
       </div>
 
       <div className="puzzle_main_choose">
+        <div className="puzzle_search_div">
         <input
           type="text"
           placeholder="Поиск..."
           value={searchTerm}
-          onChange={handleChange}
+          onChange={handleSearchChange}
         />
+       
+       <button onClick={()=>changeCatVisibility()}>Фильтры</button>
+          {isCategoryVisible&&
+          <div className="categories_list">
+            {categoriesSlots.map((category) => (
+              <label>
+                <input
+                 id={category}
+                 type="checkbox"
+                 checked={selectedItemsCategory.includes(category)}
+                 onChange={() => handleCategoryToggle1(category)}
+                 ></input>
+                {category}
+              </label>
+            ))}
+          </div>
+          
+        }
+        
 
+        </div>
         <div className="puzzle_list">
           {searchResults.map((item, index) => (
             <div

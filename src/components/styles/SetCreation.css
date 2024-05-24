@@ -4,6 +4,7 @@
   /* background-color:  #b13e3e; */
 }
 .main_div {
+  margin-top: 5px;
   display: flex;
   justify-content: space-between;
   max-height: 94vh;
@@ -191,8 +192,24 @@
   transition: opacity 0.3s ease;
 }
 .puzzle_main_choose {
+ 
   max-width: 40%;
   max-height: 40%;
+}
+.puzzle_search_div{
+  display: flex;
+}
+.categories_list{
+  right: 38%;
+  top:7%;
+  display: flex;
+  flex-direction: column;
+  background-color: #92908d;
+  border: 1px solid #353432;
+  position: absolute;
+  border-radius: 10px;
+  padding: 14px;
+  width: 130px;
 }
 .puzzle_list {
   display: grid;

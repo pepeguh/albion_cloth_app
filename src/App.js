@@ -5,6 +5,7 @@ import SetChoose from "../src/components/pages/SetChoose";
 import Profile from "../src/components/pages/Profile";
 import SetCreation from '../src/components/pages/SetCreation'
 import SetPage from "../src/components/pages/SetPage";
+import PricesPage from "./components/pages/PricesPage";
 const App = () => {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ const App = () => {
           <Route exact path="/setPage/:setId" element={<SetPage/>}/>
           <Route path="/profile" element={<Profile/>} />
           <Route path="/profile/creation" element={<SetCreation/>}/>
+          <Route path="/prices" element={<PricesPage/>}/>
         </Routes>
       </div>
     </BrowserRouter>

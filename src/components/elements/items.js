@@ -1,7 +1,7 @@
 const test2 = [
   {
     name: "T8_POTION_COOLDOWN",
-    ruName: "Большой эликсир яда",
+    ruName: "Эликсир яда",
     index: "550",
     slot: "potion",
   },
@@ -12,26 +12,74 @@ const test2 = [
     slot: "potion",
   },
   {
+    name: "T6_POTION_HEAL",
+    ruName: "Эликсир здоровья",
+    index: "490",
+    slot: "potion",
+  },
+  {
+    name: "T6_POTION_ENERGY",
+    ruName: "Эликсир энергии",
+    index: "502",
+    slot: "potion",
+  },
+  {
+    name: "T7_POTION_REVIVE",
+    ruName: "Зелье гиганта",
+    index: "514",
+    slot: "potion",
+  },
+  {
+    name: "T7_POTION_STONESKIN",
+    ruName: "Эликсир защиты",
+    index: "526",
+    slot: "potion",
+  },
+  {
+    name: "T7_POTION_SLOWFIELD",
+    ruName: "Вязкая настойка",
+    index: "538",
+    slot: "potion",
+  },
+  {
+    name: "T7_POTION_MOB_RESET",
+    ruName: "Успокаивающее зелье",
+    index: "566",
+    slot: "potion",
+  },
+  {
+    name: "T7_POTION_CLEANSE2",
+    ruName: "Очищающее зелье",
+    index: "578",
+    slot: "potion",
+  },
+  {
+    name: "T7_POTION_ACID",
+    ruName: "Кислотное зелье",
+    index: "590",
+    slot: "potion",
+  },
+  {
     name: "T8_POTION_BERSERK",
-    ruName: "Большое зелье берсерка",
+    ruName: "Зелье берсерка",
     index: "602",
     slot: "potion",
   },
   {
     name: "T8_POTION_LAVA",
-    ruName: "Большое зелье адского пламени",
+    ruName: "Зелье адского пламени",
     index: "614",
     slot: "potion",
   },
   {
     name: "T8_POTION_GATHER",
-    ruName: "Большое зелье собирателя",
+    ruName: "Зелье собирателя",
     index: "626",
     slot: "potion",
   },
   {
     name: "T8_POTION_TORNADO",
-    ruName: "Большая буря в стакане",
+    ruName: "Буря в стакане",
     index: "638",
     slot: "potion",
   },
@@ -67,7 +115,7 @@ const test2 = [
   },
   {
     name: "T8_OFF_BOOK",
-    ruName: "Дневник Розалии",
+    ruName: "Книга заклинаний",
     index: "2012",
     slot: "off_hand",
   },
@@ -798,6 +846,7 @@ const test2 = [
     index: "5756",
     slot: "boots",
   },
+  
   { name: "T8_2H_BOW", ruName: "Лук", index: "6018", slot: "weapon" },
   {
     name: "T8_2H_WARBOW",

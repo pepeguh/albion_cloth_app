@@ -1,0 +1,118 @@
+.Lymhurst {
+  background-color: #15e831ce;
+  border: 1px solid #128d23ce;
+}
+.Bridgewatch {
+  background-color: #ffed49c9;
+  border: 1px solid #948717c9;
+}
+.Caerleon {
+  background-color: #cb171dd0;
+  border: 1px solid #8b1418d0;
+}
+.Fort_Sterling {
+  background-color: #e2feffbd;
+  border: 1px solid #7a9596bd;
+}
+.Martlock {
+  background-color: #2cdcffc0;
+  border: 1px solid #1b879cc0;
+}
+.Thetford {
+  background-color: #e815e1c9;
+  border: 1px solid #91148cc9;
+}
+.Brecilien {
+  background-color: #8945e2c9;
+  border: 1px solid #622da8c9;
+}
+.m_p {
+  color: black;
+  border-radius: 20px;
+  padding-bottom: 2.5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.prices_all_top {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.prices_side {
+  display: flex;
+  flex-direction: column;
+}
+.prices_search_div {
+  display: flex;
+  /* flex-direction: column; */
+}
+.prices_right_side {
+  margin-bottom: 2%;
+  display: flex;
+  
+  flex-direction: column;
+  justify-content: right;
+}
+.search_div_img {
+  max-height: 40px;
+  overflow: hidden;
+}
+.search_img {
+  margin-top: 0;
+  height: 67px;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform: rotateZ(0deg) translateY(-12px);
+}
+.search_img:hover {
+  transform: rotateY(15deg) translateY(-13px);
+}
+.render_div {
+  background-color: rgb(122, 136, 129);
+  /* font-size: small; */
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+@media (max-width: 1200px) {
+  .render_div {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .render_div {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .render_div {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .render_div {
+    grid-template-columns: 1fr;
+  }
+}
+.item_div {
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  /* justify-content: space-between; */
+  box-shadow: 0px 0px 31px 17px rgba(0, 0, 0, 0.24);
+}
+.item_div_main{
+  display: flex;
+  
+}
+.item_div_main_price{
+  display: flex;
+  flex-direction: column;
+}
